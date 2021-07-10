@@ -20,15 +20,15 @@ public class Main extends Application{
 
         @Override
         public void start(Stage stage) throws Exception {
-            Shape shape = new Line(Color.BLUE, 5, 10);
+            Shape shape = new Line(Color.BLUE);
 
-            for (int[] v : shape.getShape()) {
+            for (int[] v : shape.getShapeCoordinates()) {
                 System.out.println(Arrays.toString(v));
             }
             System.out.println("------------");
             shape.rotateRight();
 
-            for (int[] v : shape.getShape()) {
+            for (int[] v : shape.getShapeCoordinates()) {
                 System.out.println(Arrays.toString(v));
             }
         }

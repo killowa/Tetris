@@ -11,6 +11,7 @@ Data\Settings.class
 Data\User.class
 shapes\TShape.class
 Data\Difficulties\Difficulty.class
+shapes\ShapeType.class
 shapes\ZShape.class
 Data\Difficulties\EasyDifficulty.class
 Data\Difficulties\MediumDifficulty.class
