@@ -9,8 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import shapes.Shape;
-import shapes.TShape;
+import shapes.*;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -21,7 +20,7 @@ public class Main extends Application{
 
         @Override
         public void start(Stage stage) throws Exception {
-            Shape shape = new TShape(Color.BLUE, 5, 10);
+            Shape shape = new Line(Color.BLUE, 5, 10);
 
             for (int[] v : shape.getShape()) {
                 System.out.println(Arrays.toString(v));

@@ -44,20 +44,17 @@ public class Shape {
                     sum += coordinates[i][j] * trans[j][k];
                     maxNeg = Math.min(sum, maxNeg);
                 }
+                if(k == 0) {
+                    int d = coordinates.length-1 - i;
+                }
                 ans[i][k] = sum;
             }
         }
 
-
-
-        for (int i = 0; i < ans.length; i++)
+        for (int i = 0; i < ans.length; i++) {
             ans[i][0] += Math.abs(maxNeg);
-
-        for (int[] v : coordinates) {
-            System.out.println(Arrays.toString(v));
+            ans[i][0] = this.shape.length-1 - ans[i][0];
         }
-
-        System.out.println("----------");
 
 
         this.coordinates = ans;
@@ -75,9 +72,6 @@ public class Shape {
             this.shape[y][x] = 1;
         }
 
-        for (int[] v : coordinates) {
-            System.out.println(Arrays.toString(v));
-        }
     }
 
     public void rotateLeft() {
@@ -86,6 +80,7 @@ public class Shape {
 
         int [][] ans = new int[coordinates.length][coordinates[0].length];
         int maxNeg = 0;
+        int d;
 
         for (int i = 0; i < coordinates.length; i++){
 
@@ -99,14 +94,25 @@ public class Shape {
             }
         }
 
-        for (int i = 0; i < ans.length; i++)
-            ans[i][0] += Math.abs(maxNeg);
-
-        for (int[] v : ans) {
-            System.out.println(Arrays.toString(v));
+        for (int i = 0; i < ans.length; i++) {
+            ans[i][1] += Math.abs(maxNeg);
+            ans[i][0] = shape.length-1 - ans[i][0];
         }
 
         this.coordinates = ans;
+
+        for(int i = 0; i < shape.length; i++) {
+            for (int j = 0; j < shape.length; j++) {
+                this.shape[i][j] = 0;
+            }
+        }
+
+        for(int i = 0; i < coordinates.length; i++) {
+
+            int x = coordinates[i][1];
+            int y = coordinates[i][0];
+            this.shape[y][x] = 1;
+        }
     }
 
     public Color getColor() {
