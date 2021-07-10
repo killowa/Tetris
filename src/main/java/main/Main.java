@@ -17,11 +17,11 @@ public class Main extends Application{
 
         @Override
         public void start(Stage stage) throws Exception {
-                Stage stage1 = new Stage();
-               Scene scene = new Scene(new Pane(), 500, 500);
-               stage1.setScene(scene);
-               stage1.showAndWait();
-               System.exit(0);
+            Stage stage1 = new Stage();
+            Scene scene = new Scene(new Pane(), 500, 500);
+            stage1.setScene(scene);
+            stage1.showAndWait();
+            System.exit(0);
         }
 
         public static void main(String[] args) {
