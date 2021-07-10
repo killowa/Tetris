@@ -1,5 +1,6 @@
 package main;
 
+import decorates.Color;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,20 +9,29 @@ import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import shapes.Shape;
+import shapes.TShape;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Main extends Application{
 
         @Override
         public void start(Stage stage) throws Exception {
-            Stage stage1 = new Stage();
-            Scene scene = new Scene(new Pane(), 500, 500);
-            stage1.setScene(scene);
-            stage1.showAndWait();
-            System.exit(0);
+            Shape shape = new TShape(Color.BLUE, 5, 10);
+
+            for (int[] v : shape.getShape()) {
+                System.out.println(Arrays.toString(v));
+            }
+            System.out.println("------------");
+            shape.rotateRight();
+
+            for (int[] v : shape.getShape()) {
+                System.out.println(Arrays.toString(v));
+            }
         }
 
         public static void main(String[] args) {

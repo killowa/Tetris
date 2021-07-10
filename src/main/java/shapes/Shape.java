@@ -2,6 +2,7 @@ package shapes;
 
 import decorates.Color;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class Shape {
@@ -47,10 +48,36 @@ public class Shape {
             }
         }
 
+
+
         for (int i = 0; i < ans.length; i++)
             ans[i][0] += Math.abs(maxNeg);
 
-        coordinates = ans;
+        for (int[] v : coordinates) {
+            System.out.println(Arrays.toString(v));
+        }
+
+        System.out.println("----------");
+
+
+        this.coordinates = ans;
+
+        for(int i = 0; i < shape.length; i++) {
+            for (int j = 0; j < shape.length; j++) {
+                this.shape[i][j] = 0;
+            }
+        }
+
+        for(int i = 0; i < coordinates.length; i++) {
+
+            int x = coordinates[i][1];
+            int y = coordinates[i][0];
+            this.shape[y][x] = 1;
+        }
+
+        for (int[] v : coordinates) {
+            System.out.println(Arrays.toString(v));
+        }
     }
 
     public void rotateLeft() {
@@ -75,7 +102,11 @@ public class Shape {
         for (int i = 0; i < ans.length; i++)
             ans[i][0] += Math.abs(maxNeg);
 
-        coordinates = ans;
+        for (int[] v : ans) {
+            System.out.println(Arrays.toString(v));
+        }
+
+        this.coordinates = ans;
     }
 
     public Color getColor() {
