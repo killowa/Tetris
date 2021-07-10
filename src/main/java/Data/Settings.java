@@ -1,5 +1,6 @@
 package Data;
 
+import Data.Difficulties.Difficulty;
 import javafx.scene.input.KeyEvent;
 
 public class Settings {
