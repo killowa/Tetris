@@ -53,7 +53,6 @@ public class Shape {
 
         for (int i = 0; i < ans.length; i++) {
             ans[i][0] += Math.abs(maxNeg);
-            ans[i][0] = this.shape.length-1 - ans[i][0];
         }
 
 
@@ -68,7 +67,7 @@ public class Shape {
         for(int i = 0; i < coordinates.length; i++) {
 
             int x = coordinates[i][1];
-            int y = coordinates[i][0];
+            int y = this.shape.length-1 - coordinates[i][0];
             this.shape[y][x] = 1;
         }
 
@@ -96,7 +95,6 @@ public class Shape {
 
         for (int i = 0; i < ans.length; i++) {
             ans[i][1] += Math.abs(maxNeg);
-            ans[i][0] = shape.length-1 - ans[i][0];
         }
 
         this.coordinates = ans;
@@ -110,7 +108,7 @@ public class Shape {
         for(int i = 0; i < coordinates.length; i++) {
 
             int x = coordinates[i][1];
-            int y = coordinates[i][0];
+            int y = shape.length-1 - coordinates[i][0];
             this.shape[y][x] = 1;
         }
     }
