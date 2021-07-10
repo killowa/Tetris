@@ -1,127 +1,84 @@
 package shapes;
 
 import decorates.Color;
+import javafx.scene.Node;
 
 import java.util.Arrays;
-import java.util.Random;
 
-public class Shape {
+public abstract class Shape extends Node{
 
-    protected Color color;
-    protected int[][] shape;
-    protected int[][] coordinates;
-    protected int xPos;
-    protected int yPos;
-    protected Random random;
+    private final Color color;
+    private final int[][] shapeCoordinates;
+    private final int[][] rightRotTran = new int[][]{{0, 1}, {-1, 0}};
+    private final int[][] leftRotTran = new int[][]{{0, -1}, {1, 0}};
+    private final int[][] tempCoordinates;
+    private ShapeType shapeType;
 
-    public Shape(Color color, int xPos, int yPos) {
-        this.coordinates = coordinates;
-        this.shape = shape;
+    public Shape(Color color, int[][] shapeCoordinates, ShapeType shapeType) {
+        if (color == null || shapeCoordinates == null || shapeType == null)
+            throw new IllegalArgumentException();
+
         this.color = color;
-        this.xPos = xPos;
-        this.yPos = yPos;
+        this.shapeCoordinates = shapeCoordinates;
+        this.shapeType = shapeType;
+        tempCoordinates = new int[shapeCoordinates.length][shapeCoordinates[0].length];
     }
 
-    public void moveLeft() {
-        this.xPos-=1;
+    public void moveLeft(float distance) {
+        setLayoutX(getLayoutX() - distance);
     }
 
-    public void moveRight() {
-        this.xPos+=1;
+    public void moveRight(float distance) {
+        setLayoutX(getLayoutX() + distance);
+    }
+
+    private void transformationMul(int[][] transMat) {
+
+        int sum;
+        for (int i = 0; i < shapeCoordinates.length; i++) {
+
+            for (int k = 0; k < transMat[0].length; k++) {
+                sum = 0;
+
+                for (int j = 0; j < transMat.length; j++)
+                    sum += shapeCoordinates[i][j] * transMat[j][k];
+
+                tempCoordinates[i][k] = sum;
+            }
+
+        }
+
+        //To copy from temp matrix to the shape matrix:
+        for (int i = 0; i < shapeCoordinates.length; i++)
+            System.arraycopy(tempCoordinates[i], 0, shapeCoordinates[i], 0, shapeCoordinates[i].length);
+
     }
 
     public void rotateRight() {
-
-        int [][] trans = new int[][]{{0, 1}, {-1, 0}};
-        int [][] ans = new int[coordinates.length][coordinates[0].length];
+        transformationMul(rightRotTran);
         int maxNeg = 0;
+        for (int[] shapeCoordinate : shapeCoordinates)
+            maxNeg = Math.min(maxNeg, shapeCoordinate[0]);
 
-        for (int i = 0; i < coordinates.length; i++){
-
-            for (int k = 0; k < trans[0].length; k++) {
-                int sum = 0;
-                for (int j = 0; j < trans.length; j++) {
-                    sum += coordinates[i][j] * trans[j][k];
-                    maxNeg = Math.min(sum, maxNeg);
-                }
-                ans[i][k] = sum;
-            }
-        }
-
-
-
-        for (int i = 0; i < ans.length; i++)
-            ans[i][0] += Math.abs(maxNeg);
-
-        for (int[] v : coordinates) {
-            System.out.println(Arrays.toString(v));
-        }
-
-        System.out.println("----------");
-
-
-        this.coordinates = ans;
-
-        for(int i = 0; i < shape.length; i++) {
-            for (int j = 0; j < shape.length; j++) {
-                this.shape[i][j] = 0;
-            }
-        }
-
-        for(int i = 0; i < coordinates.length; i++) {
-
-            int x = coordinates[i][1];
-            int y = coordinates[i][0];
-            this.shape[y][x] = 1;
-        }
-
-        for (int[] v : coordinates) {
-            System.out.println(Arrays.toString(v));
-        }
+        for (int i = 0; i < shapeCoordinates.length; i++)
+            shapeCoordinates[i][0] += Math.abs(maxNeg);
     }
 
     public void rotateLeft() {
-
-        int [][] trans = new int[][]{{0, -1}, {1, 0}};
-
-        int [][] ans = new int[coordinates.length][coordinates[0].length];
+        transformationMul(leftRotTran);
         int maxNeg = 0;
+        for (int[] shapeCoordinate : shapeCoordinates)
+            maxNeg = Math.min(maxNeg, shapeCoordinate[1]);
 
-        for (int i = 0; i < coordinates.length; i++){
-
-            for (int k = 0; k < trans[0].length; k++) {
-                int sum = 0;
-                for (int j = 0; j < trans.length; j++) {
-                    sum += coordinates[i][j] * trans[j][k];
-                    maxNeg = Math.min(sum, maxNeg);
-                }
-                ans[i][k] = sum;
-            }
-        }
-
-        for (int i = 0; i < ans.length; i++)
-            ans[i][0] += Math.abs(maxNeg);
-
-        for (int[] v : ans) {
-            System.out.println(Arrays.toString(v));
-        }
-
-        this.coordinates = ans;
+        for (int i = 0; i < shapeCoordinates.length; i++)
+            shapeCoordinates[i][1] += Math.abs(maxNeg);
     }
 
     public Color getColor() {
         return color;
     }
 
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
-    public int[][] getShape() {
-        return shape;
-    }
-
-    public void setShape(int[][] shape) {
-        this.shape = shape;
+    public ShapeType getShapeType() {
+        return shapeType;
     }
 }
